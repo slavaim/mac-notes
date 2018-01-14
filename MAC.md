@@ -1,6 +1,6 @@
 A list of default macOS MAC policies
 
-'''
+```
 (lldb) p mac_policy_list.entries[0].mpc
 (mac_policy_conf *) $90 = 0xffffff7f823db4b8
 (lldb) p *mac_policy_list.entries[0].mpc
@@ -55,4 +55,4 @@ A list of default macOS MAC policies
   mpc_list = 0x0000000000000000
   mpc_data = 0x0000000000000000
 }
-'''
+```
