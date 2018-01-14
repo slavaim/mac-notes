@@ -1,4 +1,4 @@
-How to get a list of callbacks registered with Sandbox MAC ( here for macOS 10.13 High Sierra ).
+How to get a list of callbacks registered by the Sandbox MAC ( here for macOS 10.13 High Sierra ).
 
 First increase the LLDB ```target.max-children-count``` setting so big structures are printed in full.
 
