@@ -10,7 +10,7 @@ target.max-children-count (int) = 256
 target.max-children-count (int) = 512
 ```
 
-Print a list of operations.
+Print the structure.
 
 ```
 (lldb) p *mac_policy_list.entries[1].mpc->mpc_ops
