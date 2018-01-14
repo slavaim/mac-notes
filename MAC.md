@@ -1,4 +1,4 @@
-A list of default macOS MAC policies
+A list of default macOS MAC policies (10.13 High Sierra)
 
 ```
 (lldb) p mac_policy_list.entries[0].mpc
