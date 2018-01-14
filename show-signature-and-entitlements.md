@@ -1,4 +1,4 @@
-To inspect a signature and entitlemenst for an application execute ```codesign`` command as shown (in this case for /Applications/TextEdit.app)
+To inspect a signature and entitlemenst for an application execute ```codesign``` command as shown (in this case for /Applications/TextEdit.app)
 
 ```
 $ codesign -dvvv --entitlements - /Applications/TextEdit.app
