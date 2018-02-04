@@ -105,7 +105,7 @@ frame #50: 0xffffff8024a6a590 kernel`getattrlist(p=<unavailable>, uap=0xffffff80
 (unsigned long) $16 = 0x0000000000003ef0
 ```
 
-Check that at the bottom the call stack the stack has been depleted
+Check that at the bottom of the call stack the stack has been depleted
 
 ```
 (lldb) f 8
