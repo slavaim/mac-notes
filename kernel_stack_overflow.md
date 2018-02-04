@@ -56,7 +56,7 @@ An example of a kernel stack overflow research. A stack overflow usually manifes
     frame #52: 0xffffff8024802906 kernel`hndl_unix_scall64 + 22
 ```
 
-Lets get the system kernel stack size.
+Let's get the system kernel stack size.
 
 ```
 (lldb) p/x kernel_stack_size
