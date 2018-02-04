@@ -1,4 +1,4 @@
-An example of a kernel stack overflow research. A stack overflow usually manifests itself as a kernel panic with a double fault error.
+An example of a kernel stack overflow caused by nested calls. This type of stack overflow usually manifests itself as a kernel panic with a double fault error.
 
 ```
     frame #0: 0xffffff802485002c kernel`panic_trap_to_debugger [inlined] current_cpu_datap at cpu_data.h:401 [opt]
