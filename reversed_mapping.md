@@ -62,12 +62,7 @@ pmap_page_protect_options(
 	do {
 		vm_map_offset_t vaddr;
 
-		if ((options & PMAP_OPTIONS_COMPRESSOR_IFF_MODIFIED) &&
-		    (pmap_phys_attributes[pai] & PHYS_MODIFIED)) {
-			/* page was modified, so it will be compressed */
-			options &= ~PMAP_OPTIONS_COMPRESSOR_IFF_MODIFIED;
-			options |= PMAP_OPTIONS_COMPRESSOR;
-		}
+...
 
 		pmap = pv_e->pmap;
 		is_ept = is_ept_pmap(pmap);
