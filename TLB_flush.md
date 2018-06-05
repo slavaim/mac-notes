@@ -118,4 +118,24 @@ i386_cpu_IPI(int cpu)
 
 	lapic_send_ipi(cpu, LAPIC_VECTOR(INTERPROCESSOR));
 }
+
+void
+lapic_send_ipi(int cpu, int vector)
+{
+	boolean_t	state;
+
+	if (vector < lapic_interrupt_base)
+		vector += lapic_interrupt_base;
+
+	state = ml_set_interrupts_enabled(FALSE);
+
+	/* Wait for pending outgoing send to complete */
+	while (LAPIC_READ_ICR() & LAPIC_ICR_DS_PENDING) {
+		cpu_pause();
+	}
+
+	LAPIC_WRITE_ICR(cpu_to_lapic[cpu], vector | LAPIC_ICR_DM_FIXED);
+
+	(void) ml_set_interrupts_enabled(state);
+}
 ```
