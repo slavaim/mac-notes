@@ -33,6 +33,7 @@ kdp_i386_trap(...)
 ```
 
 <------------------------>
+On Sun, Jun 17, 2018 at XXXXX, Slava Imameev XXXXXXXX@gmail.com wrote: 
 
 Hi,
 
