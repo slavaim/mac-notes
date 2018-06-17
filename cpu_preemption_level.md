@@ -32,10 +32,13 @@ kdp_i386_trap(...)
 }
 ```
 
-```
+<------------------------>
+
 Hi,
 
 The cpu_preemption_level values were altered by the panic code. The actual values might be calculated by subtracting 3 from the cpu_preemption_level value for a CPU that panic'ed (panic_trap_to_debugger, kdp_i386_trap increase it) and 1 for other CPUs(a value is increased when processing IPI / NMI sent to freeze CPUs). That said the CPU's preemption level for a cpu that called msleep() was -1 before calling panic() and 0 for another cpu. The showcurrentstacks command has a bug by reporting values altered either by panic() or a kernel debugger code.
+
+<------------------------>
 
 On Sun, Jun 17, 2018 at 9:25 PM, Irad K <XXXXXXXX@gmail.com> wrote:
 Hi Slava and thanks for your support,
@@ -49,7 +52,7 @@ Notice that the thread the produces the panic, runs my driver code and it's call
 
 I attached here below the panic log, the data from cpu_data_ptr[X] for both cpus, and output from showcurrentstacks.
 
-
+```
 panic(cpu 1 caller 0xffffff800affef06): "thread_invoke: preemption_level -1, possible cause: unlocking an unlocked mutex or spinlock"@/BuildRoot/Library/Caches/com.apple.xbs/Sources/xnu/xnu-4903.200.199.11.1/osfmk/kern/sched_prim.c:2263
 Backtrace (CPU 1), Frame : Return Address
 
@@ -121,11 +124,11 @@ Backtrace (CPU 1), Frame : Return Address
   cpu_xstate = 2
   cd_shadow = 0xffffff800ad09100
   cpu_processor = 0xffffff807d485000
-
+```
 
 Looking at showcurrentstacks command, it seems that both processors have preemption disabled bit on 
 
-
+```
 Processor 0xffffff800b9e3db8 cpu_id  0x0 AST:        State RUNNING      Preemption Disabled
 
 task                 vm_map               ipc_space            #acts flags    pid       process             io_policy  wq_state  command             
@@ -165,8 +168,9 @@ task                 vm_map               ipc_space            #acts flags    pi
 	0xffffff801201bca0 0xffffff800b4fd352 msleep((void *) chan = 0x01000004001ddd89, (lck_mtx_t *) mtx = 0x0000000000000000, (int) pri = 0, (const char *) wmsg = 0xffffff7f8d6f2e07 "", (timespec *) ts = <>, ) 
 	0xffffff801201bd00 0xffffff7f8d6e8d1e com.my.driver + 0x5d1e 
 	0xffffff801201be30 0xffffff7f8d6eb144 com.my.driver + 0x8144 
+```
 
-
+<------------------------>
 
 On Sat, Jun 16, 2018 at 7:12 PM, Slava Imameev <XXXXXXXX@gmail.com> wrote:
 Hi,
@@ -175,6 +179,7 @@ The GS register doesn't contain a virtual address for a segment. The GS register
 
 Actually, you don't need to access per-CPU data this way. Per-CPU data can be found by dereferencing elements from an array of pointers
 
+```
 cpu_data_t *cpu_data_ptr[MAX_CPUS]
 
 For example, per-cpu data for a core which has been assigned an index 0 
@@ -196,7 +201,7 @@ For example, per-cpu data for a core which has been assigned an index 0
   cpu_prior_signals = 0
 
 ....
-
+```
 
 The above assumes that you have loaded a kernel dump or attached to a live system with valid kernel symbols.
 If you are not sure on which core a kext is running use showcurrentstacks command.
@@ -204,6 +209,7 @@ If you are not sure on which core a kext is running use showcurrentstacks comman
 Regards,
 Slava Imameev
 
+<------------------------>
 
 On Thu, Jun 14, 2018 at 6:14 PM, Zohar Cabeli <XXXXXXX@gmail.com> wrote:
 Hi, 
@@ -242,4 +248,5 @@ Help/Unsubscribe/Update your Subscription:
 https://lists.apple.com/mailman/options/darwin-kernel/XXXXXX%40gmail.com
 
 This email sent to XXXXXXX@gmail.com
-```
+
+<------------------------>
