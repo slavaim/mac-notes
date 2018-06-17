@@ -1,12 +1,12 @@
 This is a copy of a thread from the darwin mailing list regarding preemption level retrieval in a kernel debug session. 
 The delta values for cpu_preemption_level on 10.14 Mojave are as follows. To get an actual value for a CPU subtract this deltas from cpu_data_ptr[CPU_NUM]->cpu_preemption_level
 
-1) A CPU interrupted by a NMI to enter debugger - 4
-   Others CPUS - 1
+1) A CPU interrupted by a NMI to enter debugger - 4 . 
+   Others CPUS - 1 . 
 
-2) A CPU which called panic() - 3
-   Other CPUs - 1
-   
+2) A CPU which called panic() - 3 . 
+   Other CPUs - 1 . 
+     
 The value is increased by an interrupt handler that processes IPI or NMI to freeze CPUs and by panic code, e.g.
 
 ```
