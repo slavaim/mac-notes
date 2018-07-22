@@ -1,5 +1,5 @@
 
-A process structure provided as a seventh parameter is a copy of a parent process one(i.e. a forked one). A vnode provided as a second parameter should be used to query for an executable path. The context is the parent one as is showen by the ```currentstack``` command and a code commentary for ```exec_mach_imgact```
+A process structure provided as a seventh parameter is a copy of a parent process one(i.e. a forked one). A vnode provided as a second parameter should be used to query for an executable path. The context is the parent one as is shown by the ```currentstack``` command and a code commentary for ```exec_mach_imgact```
 
 ```
 	/*
