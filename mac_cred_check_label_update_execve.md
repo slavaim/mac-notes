@@ -613,4 +613,124 @@ frame #0: 0xffffff802d0b3814 kernel.development`mac_cred_check_label_update_exec
 0xffffff90df09b970: 0xffffff90df09ba10 0xffffff802d0b88d2
 0xffffff90df09b980: 0xffffff8042669500 0xffffff803a2386c8
 0xffffff90df09b990: 0xffffff90df09b9c8 0x0000000000000001
+
+(lldb) disassem -a 0xffffff802d0b3814
+kernel.development`mac_cred_check_label_update_execve:
+    0xffffff802d0b37f0 <+0>:   pushq  %rbp
+    0xffffff802d0b37f1 <+1>:   movq   %rsp, %rbp
+    0xffffff802d0b37f4 <+4>:   pushq  %r15
+    0xffffff802d0b37f6 <+6>:   pushq  %r14
+    0xffffff802d0b37f8 <+8>:   pushq  %r13
+    0xffffff802d0b37fa <+10>:  pushq  %r12
+    0xffffff802d0b37fc <+12>:  pushq  %rbx
+    0xffffff802d0b37fd <+13>:  subq   $0x38, %rsp
+    0xffffff802d0b3801 <+17>:  movq   %r9, -0x58(%rbp)
+    0xffffff802d0b3805 <+21>:  movq   %r8, -0x50(%rbp)
+    0xffffff802d0b3809 <+25>:  movq   %rcx, -0x48(%rbp)
+    0xffffff802d0b380d <+29>:  movq   %rdx, -0x40(%rbp)
+    0xffffff802d0b3811 <+33>:  movq   %rsi, %r13
+    0xffffff802d0b3814 <+36>:  int3   
+    0xffffff802d0b3815 <+37>:  movl   0x8(%rdi), %eax
+    0xffffff802d0b3818 <+40>:  movq   %rax, -0x38(%rbp)
+    0xffffff802d0b381c <+44>:  movl   0x3ce2b2(%rip), %eax      ; mac_policy_list + 12
+    0xffffff802d0b3822 <+50>:  testl  %eax, %eax
+    0xffffff802d0b3824 <+52>:  je     0xffffff802d0b38c2        ; <+210> at mac_vfs.c
+    0xffffff802d0b382a <+58>:  xorl   %r12d, %r12d
+    0xffffff802d0b382d <+61>:  leaq   -0x30(%rbp), %rbx
+    0xffffff802d0b3831 <+65>:  xorl   %r15d, %r15d
+    0xffffff802d0b3834 <+68>:  nopw   %cs:(%rax,%rax)
+    0xffffff802d0b3840 <+80>:  movq   0x3ce299(%rip), %rcx      ; mac_policy_list + 24
+    0xffffff802d0b3847 <+87>:  movl   %r15d, %edx
+    0xffffff802d0b384a <+90>:  movq   (%rcx,%rdx,8), %rcx
+    0xffffff802d0b384e <+94>:  testq  %rcx, %rcx
+    0xffffff802d0b3851 <+97>:  je     0xffffff802d0b38b8        ; <+200> at mac_vfs.c:744
+    0xffffff802d0b3853 <+99>:  movq   0x20(%rcx), %rdx
+    0xffffff802d0b3857 <+103>: movq   0x30(%rdx), %r14
+    0xffffff802d0b385b <+107>: testq  %r14, %r14
+    0xffffff802d0b385e <+110>: je     0xffffff802d0b38b8        ; <+200> at mac_vfs.c:744
+    0xffffff802d0b3860 <+112>: movq   $0x0, -0x30(%rbp)
+    0xffffff802d0b3868 <+120>: movq   (%rcx), %rsi
+    0xffffff802d0b386b <+123>: movq   0x18(%rbp), %rdi
+    0xffffff802d0b386f <+127>: movq   %rbx, %rdx
+    0xffffff802d0b3872 <+130>: callq  0xffffff802ce712e0        ; exec_spawnattr_getmacpolicyinfo at kern_exec.c:1954
+    0xffffff802d0b3877 <+135>: movb   $0x1, %cl
+    0xffffff802d0b3879 <+137>: testl  %r12d, %r12d
+    0xffffff802d0b387c <+140>: jne    0xffffff802d0b38ae        ; <+190> at mac_vfs.c:756
+    0xffffff802d0b387e <+142>: movq   0xe8(%r13), %r8
+    0xffffff802d0b3885 <+149>: movq   -0x38(%rbp), %rdi
+    0xffffff802d0b3889 <+153>: movq   %r13, %rsi
+    0xffffff802d0b388c <+156>: movq   -0x40(%rbp), %rdx
+    0xffffff802d0b3890 <+160>: movq   -0x48(%rbp), %rcx
+    0xffffff802d0b3894 <+164>: movq   -0x50(%rbp), %r9
+    0xffffff802d0b3898 <+168>: pushq  -0x30(%rbp)
+    0xffffff802d0b389b <+171>: pushq  %rax
+    0xffffff802d0b389c <+172>: pushq  0x10(%rbp)
+    0xffffff802d0b389f <+175>: pushq  -0x58(%rbp)
+    0xffffff802d0b38a2 <+178>: callq  *%r14
+    0xffffff802d0b38a5 <+181>: addq   $0x20, %rsp
+    0xffffff802d0b38a9 <+185>: testl  %eax, %eax
+    0xffffff802d0b38ab <+187>: setne  %cl
+    0xffffff802d0b38ae <+190>: movzbl %cl, %r12d
+    0xffffff802d0b38b2 <+194>: movl   0x3ce21c(%rip), %eax      ; mac_policy_list + 12
+    0xffffff802d0b38b8 <+200>: incl   %r15d
+    0xffffff802d0b38bb <+203>: cmpl   %eax, %r15d
+    0xffffff802d0b38be <+206>: jb     0xffffff802d0b3840        ; <+80> at mac_vfs.c:745
+    0xffffff802d0b38c0 <+208>: jmp    0xffffff802d0b38c8        ; <+216> at mac_vfs.c:758
+    0xffffff802d0b38c2 <+210>: xorl   %r15d, %r15d
+    0xffffff802d0b38c5 <+213>: xorl   %r12d, %r12d
+    0xffffff802d0b38c8 <+216>: callq  0xffffff802d0ac350        ; mac_policy_list_conditional_busy at mac_base.c:319
+    0xffffff802d0b38cd <+221>: testl  %eax, %eax
+    0xffffff802d0b38cf <+223>: je     0xffffff802d0b3974        ; <+388> at mac_vfs.c:777
+    0xffffff802d0b38d5 <+229>: movl   0x3ce1f5(%rip), %eax      ; mac_policy_list + 8
+    0xffffff802d0b38db <+235>: cmpl   %eax, %r15d
+    0xffffff802d0b38de <+238>: ja     0xffffff802d0b396f        ; <+383> at mac_vfs.c:773
+    0xffffff802d0b38e4 <+244>: leaq   -0x30(%rbp), %r14
+    0xffffff802d0b38e8 <+248>: nopl   (%rax,%rax)
+    0xffffff802d0b38f0 <+256>: movq   0x3ce1e9(%rip), %rcx      ; mac_policy_list + 24
+    0xffffff802d0b38f7 <+263>: movl   %r15d, %edx
+    0xffffff802d0b38fa <+266>: movq   (%rcx,%rdx,8), %rcx
+    0xffffff802d0b38fe <+270>: testq  %rcx, %rcx
+    0xffffff802d0b3901 <+273>: je     0xffffff802d0b3967        ; <+375> at mac_vfs.c:759
+    0xffffff802d0b3903 <+275>: movq   0x20(%rcx), %rdx
+    0xffffff802d0b3907 <+279>: movq   0x30(%rdx), %rbx
+    0xffffff802d0b390b <+283>: testq  %rbx, %rbx
+    0xffffff802d0b390e <+286>: je     0xffffff802d0b3967        ; <+375> at mac_vfs.c:759
+    0xffffff802d0b3910 <+288>: movq   $0x0, -0x30(%rbp)
+    0xffffff802d0b3918 <+296>: movq   (%rcx), %rsi
+    0xffffff802d0b391b <+299>: movq   0x18(%rbp), %rdi
+    0xffffff802d0b391f <+303>: movq   %r14, %rdx
+    0xffffff802d0b3922 <+306>: callq  0xffffff802ce712e0        ; exec_spawnattr_getmacpolicyinfo at kern_exec.c:1954
+    0xffffff802d0b3927 <+311>: movb   $0x1, %cl
+    0xffffff802d0b3929 <+313>: testl  %r12d, %r12d
+    0xffffff802d0b392c <+316>: jne    0xffffff802d0b395d        ; <+365> at mac_vfs.c:771
+    0xffffff802d0b392e <+318>: movq   0xe8(%r13), %r8
+    0xffffff802d0b3935 <+325>: movq   -0x38(%rbp), %rdi
+    0xffffff802d0b3939 <+329>: movq   %r13, %rsi
+    0xffffff802d0b393c <+332>: movq   -0x40(%rbp), %rdx
+    0xffffff802d0b3940 <+336>: movq   -0x48(%rbp), %rcx
+    0xffffff802d0b3944 <+340>: movq   -0x50(%rbp), %r9
+    0xffffff802d0b3948 <+344>: pushq  -0x30(%rbp)
+    0xffffff802d0b394b <+347>: pushq  %rax
+    0xffffff802d0b394c <+348>: pushq  0x10(%rbp)
+    0xffffff802d0b394f <+351>: pushq  -0x58(%rbp)
+    0xffffff802d0b3952 <+354>: callq  *%rbx
+    0xffffff802d0b3954 <+356>: addq   $0x20, %rsp
+    0xffffff802d0b3958 <+360>: testl  %eax, %eax
+    0xffffff802d0b395a <+362>: setne  %cl
+    0xffffff802d0b395d <+365>: movzbl %cl, %r12d
+    0xffffff802d0b3961 <+369>: movl   0x3ce169(%rip), %eax      ; mac_policy_list + 8
+    0xffffff802d0b3967 <+375>: incl   %r15d
+    0xffffff802d0b396a <+378>: cmpl   %eax, %r15d
+    0xffffff802d0b396d <+381>: jbe    0xffffff802d0b38f0        ; <+256> at mac_vfs.c:760
+    0xffffff802d0b396f <+383>: callq  0xffffff802d0ac3b0        ; mac_policy_list_unbusy at mac_base.c:337
+    0xffffff802d0b3974 <+388>: movl   %r12d, %eax
+    0xffffff802d0b3977 <+391>: addq   $0x38, %rsp
+    0xffffff802d0b397b <+395>: popq   %rbx
+    0xffffff802d0b397c <+396>: popq   %r12
+    0xffffff802d0b397e <+398>: popq   %r13
+    0xffffff802d0b3980 <+400>: popq   %r14
+    0xffffff802d0b3982 <+402>: popq   %r15
+    0xffffff802d0b3984 <+404>: popq   %rbp
+    0xffffff802d0b3985 <+405>: retq   
+
 ```
