@@ -1,5 +1,23 @@
 
-A process structure provided as a seventh parameter is a copy of a parent process one(i.e. a forked one). A vnode provided as a second parameter should be used to query for an executable path.
+A process structure provided as a seventh parameter is a copy of a parent process one(i.e. a forked one). A vnode provided as a second parameter should be used to query for an executable path. The context is the parent one as is showen by the ```currentstack``` command and a code commentary for ```exec_mach_imgact```
+
+```
+	/*
+	 * We are being called to activate an image subsequent to a vfork()
+	 * operation; in this case, we know that our task, thread, and
+	 * uthread are actually those of our parent, and our proc, which we
+	 * obtained indirectly from the image_params vfs_context_t, is the
+	 * new child process.
+	 */
+     if (vfexec) {
+		imgp->ip_new_thread = fork_create_child(task, NULL, p, FALSE, (imgp->ip_flags & IMGPF_IS_64BIT), FALSE);
+		/* task and thread ref returned, will be released in __mac_execve */
+		if (imgp->ip_new_thread == NULL) {
+			error = ENOMEM;
+			goto bad;
+		}
+	}
+```
 
 ```
 (lldb) bt
