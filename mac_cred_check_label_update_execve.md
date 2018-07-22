@@ -601,5 +601,16 @@ task                 vm_map               ipc_space            #acts flags    pi
 0xffffff8043339370   0xffffff8041d8bd00   0xffffff8042d95200       2 D        607   0xffffff803edbc240                -1 -1 -1    distnoted           
 0xffffff80433381b8   0xffffff8041d8be00   0xffffff8042d94840       3 D        608   0xffffff8043c196d0       RAGE BLT -1 -1 -1    mdworker            
 0xffffff8041f73bd0   0xffffff804333c300   0xffffff8042d95500       2 RB       609   0xffffff8043c19b60                -1 -1 -1    IMDMessageServic    
-0xffffff803e88d1b8   0xffffff8042669f00   0xffffff8042d94b40       1          610   0xffffff8041d4b920                -1 -1 -1    launchd        
+0xffffff803e88d1b8   0xffffff8042669f00   0xffffff8042d94b40       1          610   0xffffff8041d4b920                -1 -1 -1    launchd       
+
+(lldb) f 0
+frame #0: 0xffffff802d0b3814 kernel.development`mac_cred_check_label_update_execve [inlined] vfs_context_ucred(ctx=0xffffff90df09bd60) at kpi_vfs.c:1369 [opt]
+(lldb) p/x $rbp
+(unsigned long) $28 = 0xffffff90df09b950
+(lldb) x/10gx 0xffffff90df09b950
+0xffffff90df09b950: 0xffffff90df09bca0 0xffffff802ce6dfb3
+0xffffff90df09b960: 0xffffff8041d4b920 0x0000000000000000
+0xffffff90df09b970: 0xffffff90df09ba10 0xffffff802d0b88d2
+0xffffff90df09b980: 0xffffff8042669500 0xffffff803a2386c8
+0xffffff90df09b990: 0xffffff90df09b9c8 0x0000000000000001
 ```
