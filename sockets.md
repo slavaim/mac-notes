@@ -30,8 +30,21 @@ int
 soconnectlock(struct socket *so, struct sockaddr *nam, int dolock)
 {
 ...
-			error = (*so->so_proto->pr_usrreqs->pru_connect)
-			    (so, nam, p);
+	error = (*so->so_proto->pr_usrreqs->pru_connect)(so, nam, p);
+...
+}
+
+static int
+unp_connect(struct socket *so, struct sockaddr *nam, __unused proc_t p)
+{
+    struct sockaddr_un *soun = (struct sockaddr_un *)nam;
+...
+	bcopy(soun->sun_path, buf, len);
+	buf[len] = 0;
+...
+	NDINIT(&nd, LOOKUP, OP_LOOKUP, FOLLOW | LOCKLEAF, UIO_SYSSPACE,
+	    CAST_USER_ADDR_T(buf), ctx);
+	error = namei(&nd);
 ...
 }
 
