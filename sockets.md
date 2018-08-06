@@ -129,7 +129,7 @@ struct pr_usrreqs uipc_usrreqs = {
 };
 ```
 
-A UNIX local socket creation. A file system lookup returns EJUSTRETURN if a socket file doesn't exists, this error is transformed to a successful code as CREATE is requested.
+An AF_UNIX socket creation. A file system lookup returns EJUSTRETURN if a socket file doesn't exists, this error is transformed to a successful code as CREATE is requested.
 
 ```
 
