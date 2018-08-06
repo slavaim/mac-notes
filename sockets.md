@@ -128,3 +128,80 @@ struct pr_usrreqs uipc_usrreqs = {
 	.pru_soreceive =	soreceive,
 };
 ```
+
+A UNIX local socket creation. A file system lookup returns EJUSTRETURN if a socket file doesn't exists, this error is transformed to a successful code as CREATE is requested.
+
+```
+static int
+unp_bind(
+	struct unpcb *unp,
+	struct sockaddr *nam,
+	proc_t p)
+{
+...
+	NDINIT(&nd, CREATE, OP_MKFIFO, FOLLOW | LOCKPARENT, UIO_SYSSPACE,
+	    CAST_USER_ADDR_T(buf), ctx);
+	/* SHOULD BE ABLE TO ADOPT EXISTING AND wakeup() ALA FIFO's */
+	error = namei(&nd);
+	if (error) {
+		socket_lock(so, 0);
+		return (error);
+	}
+	dvp = nd.ni_dvp;
+	vp = nd.ni_vp;
+
+	if (vp != NULL) {
+		/*
+		 * need to do this before the vnode_put of dvp
+		 * since we may have to release an fs_nodelock
+		 */
+		nameidone(&nd);
+
+		vnode_put(dvp);
+		vnode_put(vp);
+
+		socket_lock(so, 0);
+		return (EADDRINUSE);
+	}
+
+	VATTR_INIT(&va);
+	VATTR_SET(&va, va_type, VSOCK);
+	VATTR_SET(&va, va_mode, (ACCESSPERMS & ~p->p_fd->fd_cmask));
+
+#if CONFIG_MACF
+	error = mac_vnode_check_create(ctx,
+	    nd.ni_dvp, &nd.ni_cnd, &va);
+
+	if (error == 0)
+#endif /* CONFIG_MACF */
+#if CONFIG_MACF_SOCKET_SUBSET
+	error = mac_vnode_check_uipc_bind(ctx,
+	    nd.ni_dvp, &nd.ni_cnd, &va);
+
+	if (error == 0)
+#endif /* MAC_SOCKET_SUBSET */
+	/* authorize before creating */
+	error = vnode_authorize(dvp, NULL, KAUTH_VNODE_ADD_FILE, ctx);
+
+	if (!error) {
+		/* create the socket */
+		error = vn_create(dvp, &vp, &nd, &va, 0, 0, NULL, ctx);
+	}
+	
+	nameidone(&nd);
+	vnode_put(dvp);
+
+	if (error) {
+		socket_lock(so, 0);
+		return (error);
+	}
+	vnode_ref(vp);	/* gain a longterm reference */
+	socket_lock(so, 0);
+	vp->v_socket = unp->unp_socket;
+	unp->unp_vnode = vp;
+	unp->unp_addr = (struct sockaddr_un *)dup_sockaddr(nam, 1);
+	vnode_put(vp);		/* drop the iocount */
+
+	return (0);
+}
+```
