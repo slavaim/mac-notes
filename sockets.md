@@ -132,6 +132,18 @@ struct pr_usrreqs uipc_usrreqs = {
 A UNIX local socket creation. A file system lookup returns EJUSTRETURN if a socket file doesn't exists, this error is transformed to a successful code as CREATE is requested.
 
 ```
+
+static int
+uipc_bind(struct socket *so, struct sockaddr *nam, proc_t p)
+{
+	struct unpcb *unp = sotounpcb(so);
+
+	if (unp == 0)
+		return (EINVAL);
+
+	return (unp_bind(unp, nam, p));
+}
+
 static int
 unp_bind(
 	struct unpcb *unp,
