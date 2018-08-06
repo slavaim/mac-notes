@@ -107,4 +107,24 @@ unp_connect(struct socket *so, struct sockaddr *nam, __unused proc_t p)
   pru_socheckopt = 0xffffff8006aeaf30 (kernel.development`pru_socheckopt_null at uipc_socket2.c:2266)
   pru_preconnect = 0xffffff8006aeb180 (kernel.development`pru_preconnect_null at uipc_socket2.c:2276)
 }
+
+struct pr_usrreqs uipc_usrreqs = {
+	.pru_abort =		uipc_abort,
+	.pru_accept =		uipc_accept,
+	.pru_attach =		uipc_attach,
+	.pru_bind =		uipc_bind,
+	.pru_connect =		uipc_connect,
+	.pru_connect2 =		uipc_connect2,
+	.pru_detach =		uipc_detach,
+	.pru_disconnect =	uipc_disconnect,
+	.pru_listen =		uipc_listen,
+	.pru_peeraddr =		uipc_peeraddr,
+	.pru_rcvd =		uipc_rcvd,
+	.pru_send =		uipc_send,
+	.pru_sense =		uipc_sense,
+	.pru_shutdown =		uipc_shutdown,
+	.pru_sockaddr =		uipc_sockaddr,
+	.pru_sosend =		sosend,
+	.pru_soreceive =	soreceive,
+};
 ```
