@@ -1,5 +1,5 @@
 
-```+[NSFileWrapper _canSafelyMapFilesAtPath:]``` recursively processes virtual disks(images) up to a root file system. It accepts an NSString object with a path to any file on a mounted image. Below is a psedocode produced by Hopper Disassembler.
+```+[NSFileWrapper _canSafelyMapFilesAtPath:]``` recursively processes virtual disks(images) up to a root file system. It accepts an NSString object with a path to any file on a mounted image. Below is a pseudocode produced by Hopper Disassembler.
 
 ```
 /* @class NSFileWrapper */
