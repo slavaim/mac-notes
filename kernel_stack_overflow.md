@@ -63,7 +63,7 @@ Let's get the system kernel stack size.
 (vm_offset_t) $14 = 0x0000000000004000
 ```
 
-Get the current thread stack base. First get the list of the threads executed on each CPU and locate a thread of interest.
+Get the current thread stack base. First get the list of the threads executed on each CPU and locate a thread of interest with the ```showcurrentthreads``` commands. Alternatively you can use the ```showcurrentstacks``` command.
 
 ```
 (lldb) showcurrentthreads
