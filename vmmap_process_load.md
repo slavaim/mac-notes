@@ -12,9 +12,6 @@ dyld`_dyld_start:
     0x10001c19d <+1>: pushq  $0x0
     0x10001c19f <+3>: movq   %rsp, %rbp
     0x10001c1a2 <+6>: andq   $-0x10, %rsp
-(lldb) shell vmmap 1722
-error: 'shell' is not a valid command.
-error: Unrecognized command 'shell'.
 (lldb) apropos shell
 The following commands may relate to 'shell':
   platform shell -- Run a shell command on the current platform.
