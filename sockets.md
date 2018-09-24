@@ -217,3 +217,33 @@ unp_bind(
 	return (0);
 }
 ```
+
+A UNIX (i.e. local) DNS resolver ```/var/run/mDNSResponder``` socket connection in a user mode
+
+```
+  * frame #0: 0x00007fff6cfec0a4 libsystem_kernel.dylib`__connect_nocancel
+    frame #1: 0x00007fff6cf81909 libsystem_dnssd.dylib`ConnectToServer + 864
+    frame #2: 0x00007fff6cf83032 libsystem_dnssd.dylib`DNSServiceCreateConnection + 55
+    frame #3: 0x00007fff6cf91d5c libsystem_info.dylib`_mdns_search + 860
+    frame #4: 0x00007fff6cf9153c libsystem_info.dylib`mdns_hostbyname + 428
+    frame #5: 0x00007fff6cf91154 libsystem_info.dylib`si_host_byname + 116
+    frame #6: 0x00007fff6cf91269 libsystem_info.dylib`search_host_byname + 249
+    frame #7: 0x00007fff6cf91154 libsystem_info.dylib`si_host_byname + 116
+    frame #8: 0x00007fff6cfad18b libsystem_info.dylib`gethostbyname2 + 235
+    frame #9: 0x00000001000021bd ping`___lldb_unnamed_symbol2$$ping + 4125
+    frame #10: 0x00007fff6ce9c015 libdyld.dylib`start + 1
+```
+
+and the same in a kernel mode
+
+```
+    frame #1: 0xffffff802cbe8d4c kernel.development`lookup [inlined] VNOP_LOOKUP(cnp=<unavailable>, ctx=<unavailable>) at kpi_vfs.c:3010 [opt]
+    frame #2: 0xffffff802cbe8cfe kernel.development`lookup(ndp=<unavailable>) at vfs_lookup.c:1150 [opt]
+    frame #3: 0xffffff802cbe7f12 kernel.development`namei(ndp=0xffffff8034c2bc58) at vfs_lookup.c:390 [opt]
+    frame #4: 0xffffff802cef1cfc kernel.development`unp_connect(so=<unavailable>, nam=<unavailable>, p=<unavailable>) at uipc_usrreq.c:1130 [opt]
+    frame #5: 0xffffff802cedbd9d kernel.development`soconnectlock(so=0xffffff803b8e0a08, nam=<unavailable>, dolock=<unavailable>) at uipc_socket.c:1671 [opt]
+    frame #6: 0xffffff802ceebfb3 kernel.development`connect_nocancel [inlined] connectit(so=<unavailable>, sa=<unavailable>) at uipc_syscalls.c:926 [opt]
+    frame #7: 0xffffff802ceebf52 kernel.development`connect_nocancel(p=<unavailable>, uap=<unavailable>, retval=<unavailable>) at uipc_syscalls.c:722 [opt]
+    frame #8: 0xffffff802cfa60ca kernel.development`unix_syscall64(state=<unavailable>) at systemcalls.c:382 [opt]
+    frame #9: 0xffffff802c920a36 kernel.development`hndl_unix_scall64 + 22
+```
