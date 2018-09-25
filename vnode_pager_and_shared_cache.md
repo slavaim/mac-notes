@@ -9,7 +9,7 @@ task                 vm_map               ipc_space            #acts flags    pi
 0xffffff803e0ce7a0   0xffffff803e957200   0xffffff803e93a9c0       1 D        594   0xffffff803fc986d0                -1 -1 -1    ping   
 ```
 
-Next we inspect its ```vmmap``
+Next we inspect its ```vmmap```
 
 ```
 (lldb) showmapvme 0xffffff803e957200
