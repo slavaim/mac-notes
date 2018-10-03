@@ -15,3 +15,17 @@ static	inline void * PHYSMAP_PTOV_check(void *paddr) {
 
 #define PHYSMAP_PTOV(x)	(PHYSMAP_PTOV_check((void*) (x)))
 ```
+
+Usage in kernel debug 
+
+```
+    def PhysToKernelVirt(self, addr):
+        if self.arch == 'x86_64':
+            return (addr + unsigned(self.GetGlobalVariable('physmap_base')))
+        elif self.arch.startswith('arm64'):
+            return self.PhysToKVARM64(addr)
+        elif self.arch.startswith('arm'):
+            return (addr - unsigned(self.GetGlobalVariable("gPhysBase")) + unsigned(self.GetGlobalVariable("gVirtBase")))
+        else:
+            raise ValueError("PhysToVirt does not support {0}".format(self.arch))
+```
