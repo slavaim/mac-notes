@@ -16,7 +16,7 @@ static	inline void * PHYSMAP_PTOV_check(void *paddr) {
 #define PHYSMAP_PTOV(x)	(PHYSMAP_PTOV_check((void*) (x)))
 ```
 
-Usage in kernel debug 
+Usage in kernel debug (```KDK/System/Library/Kernels/kernel.development.dSYM/Contents/Resources/Python/lldbmacros/core/kernelcore.py```)
 
 ```
     def PhysToKernelVirt(self, addr):
