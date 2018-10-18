@@ -362,7 +362,7 @@ An example of calling an AMFI MAC callback to verify a code signature.
     frame #10: 0xffffff8025120a36 kernel.development`hndl_unix_scall64 + 22
 ```
 
-A dyld uses ```F_ADDFILESIGS_RETURN``` to initiate signature verification with a callback to AMFI.
+The ```dyld``` loader uses ```F_ADDFILESIGS_RETURN``` to initiate signature verification with a callback to AMFI.
 
 ```
     frame #1: 0xffffff8030ab4388 kernel.development`mac_vnode_check_signature(vp=0xffffff804c76e3e0, cs_blob=0xffffff80440458c0, imgp=0x0000000000000000, cs_flags=0xffffff90ea4f3944, signer_type=0xffffff90ea4f3948, flags=0) at mac_vfs.c:1122 [opt]
@@ -370,6 +370,10 @@ A dyld uses ```F_ADDFILESIGS_RETURN``` to initiate signature verification with a
     frame #3: 0xffffff8030852993 kernel.development`fcntl_nocancel(p=0xffffff803db166d0, uap=0xffffff8045327000, retval=<unavailable>) at kern_descrip.c:1929 [opt]
     frame #4: 0xffffff80309a60ca kernel.development`unix_syscall64(state=<unavailable>) at systemcalls.c:382 [opt]
     frame #5: 0xffffff8030320a36 kernel.development`hndl_unix_scall64 + 22
+    
 (lldb) f 3
 frame #3: 0xffffff8030852993 kernel.development`fcntl_nocancel(p=0xffffff803db166d0, uap=0xffffff8045327000, retval=<unavailable>) at kern_descrip.c:1929 [opt]
+
+(lldb) p uap->cmd
+  (int) $168 = 97
 ```
