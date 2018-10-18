@@ -1,4 +1,6 @@
 
+A list of MAC callbacks registered by AMFI.
+
 ```
 (lldb) settings set target.max-children-count 512
 
@@ -340,4 +342,22 @@
   mpo_iokit_check_filter_properties = 0x0000000000000000
   mpo_iokit_check_get_property = 0x0000000000000000
 }
+```
+
+An example of calling an AMFI MAC callback to verify a code signature.
+
+```
+(lldb) bt
+* thread #3, name = '0xffffff8036b41758', queue = '0x0', stop reason = breakpoint 1.1
+  * frame #0: 0xffffff7fa5ec435b AppleMobileFileIntegrity`_vnode_check_signature(vnode*, label*, cs_blob*, unsigned int*, unsigned int*, int, char**, unsigned long*)
+    frame #1: 0xffffff80258b4388 kernel.development`mac_vnode_check_signature(vp=0xffffff803e5ce078, cs_blob=0xffffff803c03ac40, imgp=0xffffff8036a03a00, cs_flags=0xffffff90dd91b2e4, signer_type=0xffffff90dd91b2e8, flags=0) at mac_vfs.c:1122 [opt]
+    frame #2: 0xffffff80256c0a21 kernel.development`ubc_cs_blob_add(vp=0xffffff803e5ce078, cputype=16777223, base_offset=<unavailable>, addr=<unavailable>, size=<unavailable>, imgp=0xffffff8036a03a00, flags=<unavailable>, ret_blob=<unavailable>) at ubc_subr.c:3255 [opt]
+    frame #3: 0xffffff80256fbc29 kernel.development`parse_machfile [inlined] load_code_signature(lcp=<unavailable>, vp=0xffffff803e5ce078, macho_offset=4096, macho_size=17888, cputype=<unavailable>, result=<unavailable>, imgp=<unavailable>) at mach_loader.c:2438 [opt]
+    frame #4: 0xffffff80256fbbe6 kernel.development`parse_machfile(vp=0xffffff803e5ce078, map=0xffffff80383a9200, thread=0xffffff80399b3588, header=0xffffff80b9a27000, file_offset=<unavailable>, macho_size=17888, depth=<unavailable>, aslr_offset=<unavailable>, dyld_aslr_offset=<unavailable>, result=<unavailable>, binresult=<unavailable>, imgp=<unavailable>) at mach_loader.c:1040 [opt]
+    frame #5: 0xffffff80256fa624 kernel.development`load_machfile(imgp=0xffffff8036a03a00, header=0xffffff80b9a27000, thread=0xffffff80399b3588, mapp=0xffffff90dd91b980, result=0xffffff90dd91ba40) at mach_loader.c:423 [opt]
+    frame #6: 0xffffff802566d1bc kernel.development`exec_mach_imgact(imgp=<unavailable>) at kern_exec.c:963 [opt]
+    frame #7: 0xffffff8025673041 kernel.development`exec_activate_image(imgp=0xffffff8036a03a00) at kern_exec.c:1477 [opt]
+    frame #8: 0xffffff8025671dcb kernel.development`posix_spawn(ap=0xffffff803a6c76d0, uap=<unavailable>, retval=0xffffff803191b040) at kern_exec.c:2797 [opt]
+    frame #9: 0xffffff80257a60ca kernel.development`unix_syscall64(state=<unavailable>) at systemcalls.c:382 [opt]
+    frame #10: 0xffffff8025120a36 kernel.development`hndl_unix_scall64 + 22
 ```
