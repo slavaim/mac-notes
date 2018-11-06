@@ -58,3 +58,15 @@ issignal_locked(proc_t p)
 ...
 }
 ```
+
+A call to ast on return from an interrupt
+```
+    frame #8: 0xffffff8027ed556d kernel.development`setPop(time=<unavailable>) at rtclock.c:473 [opt]
+    frame #9: 0xffffff8027ec4deb kernel.development`timer_resync_deadlines at i386_timer.c:229 [opt]
+    frame #10: 0xffffff8027dc5b10 kernel.development`timer_call_quantum_timer_enter(call=0xffffff80bb205058, param1=0xffffff8045855928, deadline=1438564288467, ctime=1438561879599) at timer_call.c:735 [opt]
+    frame #11: 0xffffff8027d9bd78 kernel.development`thread_dispatch(thread=<unavailable>, self=0xffffff8045855928) at sched_prim.c:2950 [opt]
+    frame #12: 0xffffff8027d9aac8 kernel.development`thread_invoke(self=0xffffff8045855928, thread=0xffffff8036871b78, reason=5) at sched_prim.c:2518 [opt]
+    frame #13: 0xffffff8027d9965c kernel.development`thread_block_reason(continuation=<unavailable>, parameter=0x0000000000000000, reason=<unavailable>) at sched_prim.c:3042 [opt]
+    frame #14: 0xffffff8027d72d0b kernel.development`ast_taken_kernel at ast.c:130 [opt]
+    frame #15: 0xffffff8027d20523 kernel.development`return_to_iret + 282
+```
