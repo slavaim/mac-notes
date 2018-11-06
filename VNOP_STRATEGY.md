@@ -74,4 +74,37 @@ frame #1: 0xffffff8027a774ab kernel`cluster_io [inlined] VNOP_STRATEGY(bp=0xffff
 }
 (lldb) 
 ```
+   
+A connection between ```VNOP_STRATEGY``` and ```IOKit```.
 
+```
+    frame #8: 0xffffff80099d3df1 kernel.development`zalloc_internal(zone=0xffffff800975e6e0, canblock=1, nopagewait=0, reqsize=0x0000000000000030, tag=<unavailable>) at zalloc.c:3084 [opt]
+    frame #9: 0xffffff800998878c kernel.development`kalloc_canblock [inlined] zalloc_canblock_tag(zone=<unavailable>, canblock=1, reqsize=<unavailable>, tag=<unavailable>) at zalloc.c:3370 [opt]
+    frame #10: 0xffffff8009988778 kernel.development`kalloc_canblock(psize=<unavailable>, canblock=1, site=0xffffff800a2b1fe0) at kalloc.c:693 [opt]
+    frame #11: 0xffffff8009fb67f0 kernel.development`OSObject::operator new(size=48) at OSObject.cpp:259 [opt]
+    frame #12: 0xffffff8009fbac04 kernel.development`OSData::withCapacity(inCapacity=144) at OSData.cpp:140 [opt]
+    frame #13: 0xffffff800a05106a kernel.development`IOGeneralMemoryDescriptor::initMemoryEntries(this=0xffffff8022823100, size=<unavailable>, mapper=0xffffff80154fd400) at IOMemoryDescriptor.cpp:3286 [opt]
+    frame #14: 0xffffff800a04d638 kernel.development`IOGeneralMemoryDescriptor::initWithOptions(this=<unavailable>, buffers=<unavailable>, count=<unavailable>, offset=578957688, task=<unavailable>, options=<unavailable>, mapper=0xffffff80154fd400) at IOMemoryDescriptor.cpp:1699 [opt]
+    frame #15: 0xffffff800a053273 kernel.development`IOMemoryDescriptor::withAddressRange(unsigned long long, unsigned long long, unsigned int, task*) [inlined] IOMemoryDescriptor::withAddressRanges(rangeCount=1, options=<unavailable>) at IOMemoryDescriptor.cpp:1178 [opt]
+    frame #16: 0xffffff800a0531fb kernel.development`IOMemoryDescriptor::withAddressRange(address=<unavailable>, length=<unavailable>, options=1, task=0xffffff8014f7d1b8) at IOMemoryDescriptor.cpp:1161 [opt]
+    frame #17: 0xffffff7f8a25e4cc IOStorageFamily`dkreadwrite(void*, dkrtype_t) at IOMediaBSDClient.cpp:2723 [opt]
+    frame #18: 0xffffff7f8a25e45a IOStorageFamily`dkreadwrite(dkr=0xffffff809ec30230, dkrtype=DKRTYPE_BUF) at IOMediaBSDClient.cpp:2871 [opt]
+    frame #19: 0xffffff7f8be3110e BootCache`BC_strategy + 1198
+    frame #20: 0xffffff8009c2b6f6 kernel.development`spec_strategy(ap=<unavailable>) at spec_vnops.c:2409 [opt]
+    frame #21: 0xffffff8009c237d2 kernel.development`VNOP_STRATEGY(bp=<unavailable>) at kpi_vfs.c:5696 [opt]
+    frame #22: 0xffffff7f8c484786 apfs`nx_buf_bread + 387
+    frame #23: 0xffffff7f8c484514 apfs`_vnode_dev_read + 504
+    frame #24: 0xffffff7f8c483557 apfs`vnode_dev_read + 34
+    frame #25: 0xffffff7f8c48e800 apfs`obj_read + 212
+    frame #26: 0xffffff7f8c48db54 apfs`obj_get + 3033
+    frame #27: 0xffffff7f8c47191b apfs`btree_node_get_internal + 340
+    frame #28: 0xffffff7f8c4717b8 apfs`btree_node_get + 106
+    frame #29: 0xffffff7f8c479edc apfs`_bt_lookup_variant + 814
+    frame #30: 0xffffff7f8c47a36c apfs`bt_iterator_init_with_hint + 292
+    frame #31: 0xffffff7f8c454106 apfs`iterate_jobjs_with_hint_and_snap + 302
+    frame #32: 0xffffff7f8c45a9f8 apfs`fs_lookup_name_with_parent_id + 509
+    frame #33: 0xffffff7f8c45df85 apfs`fs_lookup_name_and_hash + 65
+    frame #34: 0xffffff7f8c42f697 apfs`apfs_lookup_name_with_alt_name + 63
+    frame #35: 0xffffff7f8c43046e apfs`apfs_internal_lookup + 234
+    frame #36: 0xffffff7f8c42497c apfs`apfs_vnop_lookup + 1095
+```
