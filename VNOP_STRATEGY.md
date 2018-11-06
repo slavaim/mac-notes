@@ -75,8 +75,8 @@ frame #1: 0xffffff8027a774ab kernel`cluster_io [inlined] VNOP_STRATEGY(bp=0xffff
 (lldb) 
 ```
    
-A connection between ```VNOP_STRATEGY``` and ```IOKit```.
-
+A connection between ```VNOP_LOOKUP```, ```VNOP_STRATEGY``` and ```IOKit```.
+   
 ```
     frame #8: 0xffffff80099d3df1 kernel.development`zalloc_internal(zone=0xffffff800975e6e0, canblock=1, nopagewait=0, reqsize=0x0000000000000030, tag=<unavailable>) at zalloc.c:3084 [opt]
     frame #9: 0xffffff800998878c kernel.development`kalloc_canblock [inlined] zalloc_canblock_tag(zone=<unavailable>, canblock=1, reqsize=<unavailable>, tag=<unavailable>) at zalloc.c:3370 [opt]
