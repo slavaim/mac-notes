@@ -1,5 +1,5 @@
 
-Registering a new IOKit kext with the kernel.
+A call stack for manually registering a new IOKit kext with the kernel using ```kextutil```.
 
 ```
 * thread #1206, name = '0xffffff80228fa840', queue = '0x0', stop reason = breakpoint 1.1
