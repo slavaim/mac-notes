@@ -1,4 +1,5 @@
-IOService registration. Here as a result of property set from a user application, there are multiple other options see below.
+IOService registration. Here as a result of property set from a user application, there are multiple places from where registerService is called.
+
 
 ```
   * frame #0: 0xffffff800da155a4 kernel.development`_IOServiceJob::startJob(nub=0xffffff8018b05fa0, type=10, options=0) at IOService.cpp:956 [opt]
