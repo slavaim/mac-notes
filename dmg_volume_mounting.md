@@ -1,4 +1,4 @@
-A collection of kernel stacks showing internal operations while creating a virtual volume from a dmg file.
+A collection of kernel stacks showing internal operations while creating/mounting a virtual volume from a dmg file.
 
 ```
 (lldb) c
