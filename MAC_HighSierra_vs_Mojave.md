@@ -7,7 +7,7 @@ These callbacks were removed for 10.14 Mojave.
     mpo_iokit_check_nvram_delete_t *mpo_iokit_check_nvram_delete;
 ```
 
-This callback replaces the ```removed mpo_iokit_check_nvram_get```.
+This callback replaces the removed ```mpo_iokit_check_nvram_get``` callback.
 ```
 mpo_proc_notify_exec_complete_t *mpo_proc_notify_exec_complete;
 ```
