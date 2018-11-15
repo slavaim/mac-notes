@@ -1,4 +1,4 @@
-A collection of unclassified stacks. Some functions were replaced with ```private + XXXX``` as they belong to a private product.
+A collection of unclassified stacks. Some functions were replaced with ```private + XXXX``` as they belong to a proprietary product.
 
 ```
 	0xffffff90d26983b0 0xffffff802de68da1 vm_object_iopl_request((vm_object_t) object = 0x0000000000000000, (vm_object_offset_t) offset = 0, (upl_size_t) size = <>, , (upl_t *) upl_ptr = 0xffffff90d26985c8, (upl_page_info_array_t) user_page_list = <>, , (unsigned int *) page_list_count = 0xffffff90d2698618, (upl_control_flags_t) cntrl_flags = <>, , (vm_tag_t) tag = 57) 
