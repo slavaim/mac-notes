@@ -45,3 +45,38 @@ Scheduling a client ```stop``` and ```detach```.
     frame #18: 0xffffff80263a60ca kernel.development`unix_syscall64(state=<unavailable>) at systemcalls.c:382 [opt]
     frame #19: 0xffffff8025d20a36 kernel.development`hndl_unix_scall64 + 22
 ```
+
+```
+* thread #12, name = '0xffffff803251b168', queue = '0x0', stop reason = breakpoint 10.1
+  * frame #0: 0xffffff80264115b6 kernel.development`IOService::scheduleTerminatePhase2(this=0xffffff803ccfc900, options=4) at IOService.cpp:2257 [opt]
+    frame #1: 0xffffff80264152b7 kernel.development`IOService::terminatePhase1(this=<unavailable>, options=4) at IOService.cpp:2212 [opt]
+    frame #2: 0xffffff7fa813a846 corecapture`CCPipe::removeCapture() + 44
+    frame #3: 0xffffff7fa813d2c7 corecapture`CCPipeUserClient::freeResources() + 41
+    frame #4: 0xffffff7fa814066f corecapture`CCDataPipeUserClient::clientDied() + 13
+    frame #5: 0xffffff8026469164 kernel.development`::iokit_client_died(obj=0xffffff80383fdd80, (null)=<unavailable>, type=<unavailable>, mscount=<unavailable>) at IOUserClient.cpp:586 [opt]
+    frame #6: 0xffffff8025e8427c kernel.development`iokit_notify at iokit_rpc.c:359 [opt]
+    frame #7: 0xffffff8025e8422e kernel.development`iokit_notify(msg=0xffffff803b974990) at iokit_rpc.c:385 [opt]
+    frame #8: 0xffffff8025d81d6f kernel.development`ipc_kobject_server(request=0xffffff803b974900, option=327681) at ipc_kobject.c:364 [opt]
+    frame #9: 0xffffff8025d54d0d kernel.development`ipc_kmsg_send(kmsg=0xffffff803b974900, option=327681, send_timeout=0) at ipc_kmsg.c:1867 [opt]
+    frame #10: 0xffffff8025d82500 kernel.development`mach_msg_send_from_kernel_proper(msg=<unavailable>, send_size=44) at ipc_mig.c:186 [opt]
+    frame #11: 0xffffff8025d63a13 kernel.development`ipc_right_dealloc [inlined] mach_notify_no_senders at mach_notify_user.c:370 [opt]
+    frame #12: 0xffffff8025d639d3 kernel.development`ipc_right_dealloc [inlined] ipc_notify_no_senders at ipc_notify.c:144 [opt]
+    frame #13: 0xffffff8025d639d3 kernel.development`ipc_right_dealloc(space=<unavailable>, name=8451, entry=<unavailable>) at ipc_right.c:994 [opt]
+    frame #14: 0xffffff8025d70723 kernel.development`mach_port_deallocate(space=0xffffff8042fb4ea0, name=8451) at mach_port.c:811 [opt]
+    frame #15: 0xffffff8025d6e434 kernel.development`_kernelrpc_mach_port_deallocate_trap(args=0xffffff90c8ddbf08) at mach_kernelrpc.c:198 [opt]
+    frame #16: 0xffffff8025ebe0ea kernel.development`mach_call_munger64(state=0xffffff8035aed220) at bsd_i386.c:573 [opt]
+    frame #17: 0xffffff8025d20a56 kernel.development`hndl_mach_scall64 + 22
+```
+
+Object's ```stop``` is called from a termination thread.
+
+```
+  * frame #0: 0xffffff8026414807 kernel.development`IOService::scheduleStop(IOService*) [inlined] IORegistryEntry::getRegistryEntryID() at IORegistryEntry.cpp:1755 [opt]
+    frame #1: 0xffffff8026414807 kernel.development`IOService::scheduleStop(this=0xffffff803c4832c0, provider=0xffffff8036422800) at IOService.cpp:2342 [opt]
+    frame #2: 0xffffff802640e8cc kernel.development`IOService::finalize(this=0xffffff803c4832c0, options=<unavailable>) at IOService.cpp:2853 [opt]
+    frame #3: 0xffffff802643bdce kernel.development`IOWorkLoop::runAction(this=0xffffff80314b8870, inAction=(kernel.development`IOService::actionFinalize(IOService*, unsigned int, void*, void*, void*) at IOService.cpp:2554), target=<unavailable>, arg0=<unavailable>, arg1=<unavailable>, arg2=<unavailable>, arg3=0x0000000000000000)(OSObject*, void*, void*, void*, void*), OSObject*, void*, void*, void*, void*) at IOWorkLoop.cpp:505 [opt]
+    frame #4: 0xffffff80264122d0 kernel.development`IOService::terminateWorker(unsigned int) [inlined] _workLoopAction(p3=<unavailable>)(OSObject*, void*, void*, void*, void*), IOService*, void*, void*, void*, void*) at IOService.cpp:2017 [opt]
+    frame #5: 0xffffff802641228b kernel.development`IOService::terminateWorker(options=1) at IOService.cpp:2730 [opt]
+    frame #6: 0xffffff802641c2f7 kernel.development`IOService::terminateThread(arg=0x0000000000000000, waitResult=<unavailable>) at IOService.cpp:2332 [opt]
+    frame #7: 0xffffff8025d1f5c7 kernel.development`call_continuation + 23
+```
