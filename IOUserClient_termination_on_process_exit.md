@@ -20,7 +20,32 @@
     frame #17: 0xffffff8025d20a36 kernel.development`hndl_unix_scall64 + 22
 ```
 
-Scheduling a client ```stop``` and ```detach```.
+A good practice is to call ```IOService::terminate()``` from ```clientClose()```. Below is an except from the IOKit header file.
+```
+    /*! @function terminate
+     @abstract Makes an IOService object inactive and begins its destruction.
+     @discussion Registering an IOService object informs possible clients of its existance and instantiates drivers
+                 that may be used with it; <code>terminate</code> involves the opposite process of informing clients
+                 that an IOService object is no longer able to be used and will be destroyed. By default, if any
+                 client has the service open, <code>terminate</code> fails. If the <code>kIOServiceRequired</code>
+                 flag is passed however, <code>terminate</code> will be successful though further progress in
+                 the destruction of the IOService object will not proceed until the last client has closed it.
+                 The service will be made inactive immediately upon successful termination, and all its clients
+                 will be notified via their @link message message@/link method with a message of type
+                 <code>kIOMessageServiceIsTerminated</code>. Both these actions take place on the caller's thread.
+                 After the IOService object is made inactive, further matching or attach calls will fail on it.
+                 Each client has its @link stop stop@/link method called upon their close of an inactive IOService
+                 object , or on its termination if they do not have it open. After <code>stop</code>, @link detach
+                 detach@/link is called in each client. When all clients have been detached, the @link finalize finalize@/link
+                 method is called in the inactive service. The termination process is inherently asynchronous because
+                 it will be deferred until all clients have chosen to close.
+     @param options In most cases no options are needed. <code>kIOServiceSynchronous</code> may be passed to cause 
+            <code>terminate</code> to not return until the service is finalized. */
+    
+    virtual bool terminate( IOOptionBits options = 0 );
+```
+
+Scheduling a client ```stop``` and ```detach``` from ```IOService::terminate```.
 
 ```
 * thread #11, name = '0xffffff80339d0a90', queue = '0x0', stop reason = breakpoint 10.1
