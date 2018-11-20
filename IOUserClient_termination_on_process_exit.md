@@ -92,7 +92,7 @@ Object's ```stop``` is also scheduled to a termination thread.
     frame #5: 0xffffff8025d1f5c7 kernel.development`call_continuation + 23
 ```
 
-An object is detached from ```stop``` in a termination thread. Some classes decide to detach in ```clientDied```.
+An object is detached from ```stop``` in a termination thread. Some classes decide to detach in ```clientClose``` or ```clientDied```.
 
 ```
   * frame #0: 0xffffff802640f584 kernel.development`IOService::detach(this=0xffffff80382a5000, provider=0xffffff8036422800) at IOService.cpp:695 [opt]
