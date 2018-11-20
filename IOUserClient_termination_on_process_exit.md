@@ -81,7 +81,7 @@ Object's ```finalize``` is called from a termination thread.
     frame #7: 0xffffff8025d1f5c7 kernel.development`call_continuation + 23
 ```
 
-Object'a ```stop``` is also scheduled to a termination thread.
+Object's ```stop``` is also scheduled to a termination thread.
 
 ```
   * frame #0: 0xffffff802640f584 kernel.development`IOService::detach(this=0xffffff803ad4fe30, provider=0xffffff80368c0f40) at IOService.cpp:695 [opt]
