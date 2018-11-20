@@ -68,7 +68,7 @@ Scheduling a client ```stop``` and ```detach```.
     frame #17: 0xffffff8025d20a56 kernel.development`hndl_mach_scall64 + 22
 ```
 
-Object's ```stop``` is called from a termination thread.
+Object's ```finalize``` is called from a termination thread.
 
 ```
   * frame #0: 0xffffff8026414807 kernel.development`IOService::scheduleStop(IOService*) [inlined] IORegistryEntry::getRegistryEntryID() at IORegistryEntry.cpp:1755 [opt]
