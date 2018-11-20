@@ -91,3 +91,17 @@ Object's ```stop``` is also scheduled to a termination thread.
     frame #4: 0xffffff802641c2f7 kernel.development`IOService::terminateThread(arg=0x0000000000000000, waitResult=<unavailable>) at IOService.cpp:2332 [opt]
     frame #5: 0xffffff8025d1f5c7 kernel.development`call_continuation + 23
 ```
+
+An object is detached from ```stop``` in a termination thread. Some classes decide to detach in ```clientDied```.
+
+```
+  * frame #0: 0xffffff802640f584 kernel.development`IOService::detach(this=0xffffff80382a5000, provider=0xffffff8036422800) at IOService.cpp:695 [opt]
+    frame #1: 0xffffff7fa7fdd746 IOAcceleratorFamily2`IOAccelCommandQueue::stopLocked() + 124
+    frame #2: 0xffffff7fa7fdd7a2 IOAcceleratorFamily2`IOAccelCommandQueue::stop(IOService*) + 76
+    frame #3: 0xffffff8026413442 kernel.development`IOService::actionStop(provider=0xffffff8036422800, client=0xffffff80382a5000, unused1=<unavailable>, unused2=<unavailable>, unused3=<unavailable>) at IOService.cpp:2581 [opt]
+    frame #4: 0xffffff802643bdce kernel.development`IOWorkLoop::runAction(this=0xffffff80314b8870, inAction=(kernel.development`IOService::actionStop(IOService*, IOService*, void*, void*, void*) at IOService.cpp:2569), target=<unavailable>, arg0=<unavailable>, arg1=<unavailable>, arg2=<unavailable>, arg3=0x0000000000000000)(OSObject*, void*, void*, void*, void*), OSObject*, void*, void*, void*, void*) at IOWorkLoop.cpp:505 [opt]
+    frame #5: 0xffffff8026412635 kernel.development`IOService::terminateWorker(unsigned int) [inlined] _workLoopAction(p3=<unavailable>)(OSObject*, void*, void*, void*, void*), IOService*, void*, void*, void*, void*) at IOService.cpp:2017 [opt]
+    frame #6: 0xffffff80264125e7 kernel.development`IOService::terminateWorker(options=1) at IOService.cpp:2781 [opt]
+    frame #7: 0xffffff802641c2f7 kernel.development`IOService::terminateThread(arg=0x0000000000000000, waitResult=<unavailable>) at IOService.cpp:2332 [opt]
+    frame #8: 0xffffff8025d1f5c7 kernel.development`call_continuation + 23
+```
