@@ -80,3 +80,14 @@ Object's ```finalize``` is called from a termination thread.
     frame #6: 0xffffff802641c2f7 kernel.development`IOService::terminateThread(arg=0x0000000000000000, waitResult=<unavailable>) at IOService.cpp:2332 [opt]
     frame #7: 0xffffff8025d1f5c7 kernel.development`call_continuation + 23
 ```
+
+Object'a ```stop``` is also scheduled to a termination thread.
+
+```
+  * frame #0: 0xffffff802640f584 kernel.development`IOService::detach(this=0xffffff803ad4fe30, provider=0xffffff80368c0f40) at IOService.cpp:695 [opt]
+    frame #1: 0xffffff802643bdce kernel.development`IOWorkLoop::runAction(this=0xffffff80307679b0, inAction=(kernel.development`IOService::actionStop(IOService*, IOService*, void*, void*, void*) at IOService.cpp:2569), target=<unavailable>, arg0=<unavailable>, arg1=<unavailable>, arg2=<unavailable>, arg3=0x0000000000000000)(OSObject*, void*, void*, void*, void*), OSObject*, void*, void*, void*, void*) at IOWorkLoop.cpp:505 [opt]
+    frame #2: 0xffffff8026412635 kernel.development`IOService::terminateWorker(unsigned int) [inlined] _workLoopAction(p3=<unavailable>)(OSObject*, void*, void*, void*, void*), IOService*, void*, void*, void*, void*) at IOService.cpp:2017 [opt]
+    frame #3: 0xffffff80264125e7 kernel.development`IOService::terminateWorker(options=1) at IOService.cpp:2781 [opt]
+    frame #4: 0xffffff802641c2f7 kernel.development`IOService::terminateThread(arg=0x0000000000000000, waitResult=<unavailable>) at IOService.cpp:2332 [opt]
+    frame #5: 0xffffff8025d1f5c7 kernel.development`call_continuation + 23
+```
