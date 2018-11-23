@@ -1,3 +1,5 @@
+This note was written before Apple published macOS 10.14 XNU sources.
+
 macOS 10.13 (High Sierra) and macOS 10.14 (Mojave) ```struct mac_policy_ops``` have the same size and are nearly identical except NVRAM callbacks on Mojave were removed and their positions were downgraded to a placeholder status. A new callback was added for 10.14 - ```mpo_proc_notify_exec_complete``` it takes place of the removed ```mpo_iokit_check_nvram_get```.
 
 These callbacks were removed for 10.14 Mojave.
