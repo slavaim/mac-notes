@@ -54,6 +54,13 @@ mach_msg_overwrite_trap(
 }
 ```
 
+Note that the IPC space for port rights is retrieved from the current task.
+
+```
+#define	current_space_fast()	(current_task_fast()->itk_space)
+#define current_space()		(current_space_fast())
+```
+
 ```ipc_kmsg_get``` allocates a kernel message buffer and copies a message data from a user space.
 
 ```
