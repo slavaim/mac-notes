@@ -13,6 +13,17 @@ frame #12: kernel.development`mach_call_munger64(state=0xffffff8022a24d40) at bs
 frame #13: kernel.development`hndl_mach_scall64 + 22
 ```
 
+The second example is for a semaphor creation
+```
+* frame #0: 0xffffff80007a5c36 kernel.development`semaphore_create(task=0xffffff800e77c1b8, new_semaphore=0xffffff90a37e3da0, policy=0, value=0) at sync_sema.c:168 [opt]
+frame #1: 0xffffff80007f5b9b kernel.development`_Xsemaphore_create(InHeadP=0xffffff8010da4e8c, OutHeadP=0xffffff8010da4788) at task_server.c:2461 [opt]
+frame #2: 0xffffff8000781d07 kernel.development`ipc_kobject_server(request=0xffffff8010da4e00, option=<unavailable>) at ipc_kobject.c:351 [opt]
+frame #3: 0xffffff8000754d0d kernel.development`ipc_kmsg_send(kmsg=0xffffff8010da4e00, option=3, send_timeout=0) at ipc_kmsg.c:1867 [opt]
+frame #4: 0xffffff800076fafb kernel.development`mach_msg_overwrite_trap(args=<unavailable>) at mach_msg.c:570 [opt]
+frame #5: 0xffffff80008be0ea kernel.development`mach_call_munger64(state=0xffffff801906e100) at bsd_i386.c:573 [opt]
+frame #6: 0xffffff8000720a56 kernel.development`hndl_mach_scall64 + 22
+```
+
 Let's look at some functions in the stack.
 
 ```mach_msg_overwrite_trap``` copies a message from a user space to a kernel space with a call to ```ipc_kmsg_get``` and resolves port rights to port objects with a call to ```ipc_kmsg_copyin```.
