@@ -13,7 +13,7 @@ frame #12: kernel.development`mach_call_munger64(state=0xffffff8022a24d40) at bs
 frame #13: kernel.development`hndl_mach_scall64 + 22
 ```
 
-The second example is for a semaphor creation
+The second example is for a semaphore creation
 ```
 * frame #0: 0xffffff80007a5c36 kernel.development`semaphore_create(task=0xffffff800e77c1b8, new_semaphore=0xffffff90a37e3da0, policy=0, value=0) at sync_sema.c:168 [opt]
 frame #1: 0xffffff80007f5b9b kernel.development`_Xsemaphore_create(InHeadP=0xffffff8010da4e8c, OutHeadP=0xffffff8010da4788) at task_server.c:2461 [opt]
