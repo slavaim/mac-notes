@@ -1,5 +1,5 @@
 
-A mapped vnode is held by bumping its ```v_usecount``` in ```ubc_map``` and releasing it in ```ubc_unmap```.
+A mapped vnode is held by bumping its ```v_usecount``` in ```ubc_map()``` and releasing it in ```ubc_unmap()```.
 
 ```
 ubc_map(vnode_t vp, int flags)
