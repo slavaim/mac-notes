@@ -81,3 +81,24 @@ ubc_unmap(struct vnode *vp)
     frame #13: 0xffffff802b8c166b kernel`mach_call_munger64(state=0xffffff803940f720) at bsd_i386.c:573 [opt]
     frame #14: 0xffffff802b75c486 kernel`hndl_mach_scall64 + 22
 ```
+
+```
+  * frame #0: 0xffffff802bd03980 kernel`ubc_unmap [inlined] lck_mtx_lock_spin(lock=0xffffff803f6c7c18) at locks_i386_opt.c:302 [opt]
+    frame #1: 0xffffff802bd03980 kernel`ubc_unmap [inlined] vnode_lock_spin(vp=0xffffff803f6c7c18) at vfs_subr.c:4407 [opt]
+    frame #2: 0xffffff802bd03980 kernel`ubc_unmap [inlined] vget_internal(vp=0xffffff803f6c7c18, vid=0, vflags=0) at vfs_subr.c:1551 [opt]
+    frame #3: 0xffffff802bd03980 kernel`ubc_unmap [inlined] vnode_getwithref(vp=0xffffff803f6c7c18) at vfs_subr.c:4472 [opt]
+    frame #4: 0xffffff802bd03980 kernel`ubc_unmap(vp=0xffffff803f6c7c18) at ubc_subr.c:2042 [opt]
+    frame #5: 0xffffff802b82491d kernel`vnode_pager_last_unmap(mem_obj=<unavailable>) at bsd_vm.c:758 [opt]
+    frame #6: 0xffffff802b8587cf kernel`vm_object_deallocate [inlined] memory_object_last_unmap(memory_object=<unavailable>) at memory_object.c:2252 [opt]
+    frame #7: 0xffffff802b8587c5 kernel`vm_object_deallocate(object=0xffffff803f74c100) at vm_object.c:845 [opt]
+    frame #8: 0xffffff802b843f89 kernel`vm_map_delete [inlined] vm_map_entry_delete(map=<unavailable>, entry=<unavailable>) at vm_map.c:7290 [opt]
+    frame #9: 0xffffff802b843e64 kernel`vm_map_delete(map=<unavailable>, start=<unavailable>, end=<unavailable>, flags=-755450452, zap_map=0x0000000000000000) at vm_map.c:8148 [opt]
+    frame #10: 0xffffff802b84b332 kernel`vm_map_remove(map=0xffffff8046fb06c8, start=4392280064, end=140737486258176, flags=448) at vm_map.c:8249 [opt]
+    frame #11: 0xffffff802b7da25e kernel`task_terminate_internal(task=0xffffff803fe0d700) at task.c:2448 [opt]
+    frame #12: 0xffffff802bcb825c kernel`exit_with_reason(p=0xffffff803ab598e0, rv=0, retval=<unavailable>, thread_can_terminate=1, perf_notify=1, jetsam_flags=<unavailable>, exit_reason=0x0000000000000000) at kern_exit.c:914 [opt]
+    frame #13: 0xffffff802bcb7fd3 kernel`exit1 [inlined] exit1_internal(p=<unavailable>, rv=<unavailable>, retval=<unavailable>, thread_can_terminate=1, perf_notify=1, jetsam_flags=0) at kern_exit.c:788 [opt]
+    frame #14: 0xffffff802bcb7fb4 kernel`exit1(p=<unavailable>, rv=<unavailable>, retval=<unavailable>) at kern_exit.c:781 [opt]
+    frame #15: 0xffffff802bcb7fa9 kernel`exit(p=<unavailable>, uap=<unavailable>, retval=<unavailable>) at kern_exit.c:764 [opt]
+    frame #16: 0xffffff802bdb619b kernel`unix_syscall64(state=<unavailable>) at systemcalls.c:381 [opt]
+    frame #17: 0xffffff802b75c466 kernel`hndl_unix_scall64 + 22
+```
