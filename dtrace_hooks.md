@@ -29,3 +29,19 @@ Processing a hook in victim's context
     frame #4: 0xffffff80061b619b kernel`unix_syscall64(state=<unavailable>) at systemcalls.c:381 [opt]
     frame #5: 0xffffff8005b5c466 kernel`hndl_unix_scall64 + 22
 ```
+
+Getting a string from a victim's address space
+
+```
+  * frame #0: 0xffffff8005dbec64 kernel`dtrace_copycheck [inlined] get_active_thread at cpu_data.h:394 [opt]
+    frame #1: 0xffffff8005dbec64 kernel`dtrace_copycheck [inlined] current_thread at machine_routines.c:803 [opt]
+    frame #2: 0xffffff8005dbec64 kernel`dtrace_copycheck(uaddr=123145422286672, kaddr=0x0000000000000000, size=256) at dtrace_glue.c:1028 [opt]
+    frame #3: 0xffffff8005dbed5b kernel`dtrace_copyinstr(src=123145422286672, dst=0xffffff90c7665239, len=256, flags=<unavailable>) at dtrace_glue.c:1064 [opt]
+    frame #4: 0xffffff8005b6bad9 kernel`dtrace_dif_subr(subr=3345371705, rd=1, regs=0xffffff800de33950, tupregs=0xffffff800de33990, nargs=302477248, mstate=0xffffff800de33ab0, state=0xffffff8012ba8300) at dtrace.c:3868 [opt]
+    frame #5: 0xffffff8005b67484 kernel`dtrace_dif_emulate(difo=<unavailable>, mstate=0xffffff800de33ab0, vstate=0xffffff8012ba8330, state=0xffffff8012ba8300) at dtrace.c:5623 [opt]
+    frame #6: 0xffffff8005b5d553 kernel`__dtrace_probe(id=<unavailable>, arg0=18446744073709551615, arg1=<unavailable>, arg2=18446744073709551615, arg3=18446743524267950848, arg4=<unavailable>) at dtrace.c:6697 [opt]
+    frame #7: 0xffffff8005b5ceaf kernel`dtrace_probe(id=163, arg0=18446744073709551615, arg1=18446744073709551615, arg2=18446744073709551615, arg3=16, arg4=0) at dtrace.c:7000 [opt]
+    frame #8: 0xffffff8005dc3851 kernel`dtrace_systrace_syscall(pp=0xffffff80125a2b70, uap=0xffffff8013ec0418, rv=<unavailable>) at systrace.c:297 [opt]
+    frame #9: 0xffffff80061b619b kernel`unix_syscall64(state=<unavailable>) at systemcalls.c:381 [opt]
+    frame #10: 0xffffff8005b5c466 kernel`hndl_unix_scall64 + 22
+```
