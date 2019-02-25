@@ -18,3 +18,14 @@ A syscall hook activation
     frame #13: 0xffffff80061b619b kernel`unix_syscall64(state=<unavailable>) at systemcalls.c:381 [opt]
     frame #14: 0xffffff8005b5c466 kernel`hndl_unix_scall64 + 22
 ```
+
+Processing a hook in victim's context
+
+```
+  * frame #0: 0xffffff8005b668aa kernel`dtrace_dif_emulate(difo=0xffffff801ac27ac0, mstate=0xffffff90c455bab0, vstate=0xffffff801695ac30, state=0xffffff801695ac00) at dtrace.c:5062 [opt]
+    frame #1: 0xffffff8005b5d470 kernel`__dtrace_probe(id=<unavailable>, arg0=4, arg1=<unavailable>, arg2=4, arg3=18446743524332645376, arg4=<unavailable>) at dtrace.c:6569 [opt]
+    frame #2: 0xffffff8005b5ceaf kernel`dtrace_probe(id=163, arg0=4, arg1=4, arg2=0, arg3=0, arg4=0) at dtrace.c:7000 [opt]
+    frame #3: 0xffffff8005dc3851 kernel`dtrace_systrace_syscall(pp=0xffffff80198561c0, uap=0xffffff8015325760, rv=<unavailable>) at systrace.c:297 [opt]
+    frame #4: 0xffffff80061b619b kernel`unix_syscall64(state=<unavailable>) at systemcalls.c:381 [opt]
+    frame #5: 0xffffff8005b5c466 kernel`hndl_unix_scall64 + 22
+```
