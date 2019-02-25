@@ -19,7 +19,7 @@ A syscall hook activation
     frame #14: 0xffffff8005b5c466 kernel`hndl_unix_scall64 + 22
 ```
 
-Processing a hook in victim's context
+Processing a hook in a victim's context
 
 ```
   * frame #0: 0xffffff8005b668aa kernel`dtrace_dif_emulate(difo=0xffffff801ac27ac0, mstate=0xffffff90c455bab0, vstate=0xffffff801695ac30, state=0xffffff801695ac00) at dtrace.c:5062 [opt]
