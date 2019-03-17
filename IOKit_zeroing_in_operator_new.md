@@ -16,4 +16,4 @@ void *OSObject::operator new(size_t size)
 }
 ```
 
-The C++ standard doesn't specify default initialization for class members of the base types. IOKit always initialize all members with zeroes in operator new().
+The C++ standard doesn't specify default initialization for class members of the base types. IOKit always initializes all members with zeroes in operator new() for classes inherited from OSObject.
